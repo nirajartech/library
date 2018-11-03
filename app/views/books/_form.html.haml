@@ -1,0 +1,27 @@
+= form_for @book do |f|
+  - if @book.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@book.errors.count, "error")} prohibited this book from being saved:"
+      %ul
+        - @book.errors.full_messages.each do |message|
+          %li= message
+
+  .field
+    = f.label :name
+    = f.text_field :name
+  .field    
+    = f.label :subject_type
+    %select{name: "book[subject_type]"}
+      %option{value: "history"} History
+      %option{value: "science"} Science
+      %option{value: "litrature"} Litrature
+      %option{value: "maths"} Maths
+    / = f.text_field :subject_type
+  .field
+    = f.label :author
+    = f.text_field :author
+  .field
+    = f.label :price
+    = f.text_field :price
+  .actions
+    = f.submit 'Save'
