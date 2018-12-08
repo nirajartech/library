@@ -19,17 +19,22 @@
       = succeed "." do
         %strong= current_user.email
       = link_to 'Home', root_path, :class => 'navbar-link'
-      |
-      \#{link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link'} |
-      \#{link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'}
-      - if current_user.has_role?(:librarian)      
-        |
-        = link_to 'Add New Book', new_book_path
-        |
-        = link_to 'Add New Student', new_user_path        
+      |            
+      / = link_to 'Logout', destroy_user_session_path, :class => 'navbar-link'
+      %a{:href => "users/sign_out"} Logout
+
+      /#{link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link'} |
+      /#{link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'}      
+      / - if current_user.has_role?(:librarian)              
+      /   = link_to 'Add New Book', new_book_path
+      /   |
+      /   = link_to 'Add New Student', new_user_path        
+      / - elsif current_user.has_role?(:student)      
+      /   |
+      /   = link_to 'Books', '#'            
     - else
       = link_to "Sign up", new_user_registration_path, :class => 'navbar-link'
       |
-      \#{link_to "Login", new_user_session_path, :class => 'navbar-link'}
+      #{link_to "Login", new_user_session_path, :class => 'navbar-link'}
 
     = yield
